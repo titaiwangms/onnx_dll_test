@@ -1,0 +1,56 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    name: build an environment for onnx
+    # Defining matrix for OS and Python
+    strategy:
+      # Ensure exhaustive testing of all scenarios to gather maximum amount of information
+      fail-fast: false
+      matrix:
+        os: [ "windows-latest", "ubuntu-20.04" ]
+        python-version: [ '3.9', '3.10' ]
+
+    # Matrix driven OS
+    runs-on: ${{ matrix.os }}
+
+    # Main steps for the test to be reproduced across OS x Python
+    steps:
+      # Step 0: Checkout code.
+      - uses: actions/checkout@v3
+
+      # Step 1: Setup python version
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Step 2: Install dependencies
+      - name: Install ONNX
+        run: |
+          pip install onnx --upgrade
+
+      # Step 3: List installed packages
+      - name: List installed packages
+        run: |
+          pip list
+
+      # Step 4: Import ONNX
+      - name: Import ONNX
+        run: |
+          python -c "import onnx"

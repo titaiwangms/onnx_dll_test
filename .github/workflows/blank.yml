@@ -72,3 +72,8 @@ jobs:
       - name: Verify in python
         run: |
           python hello_onnx.py
+
+      # Step 6: Pytest
+      - name: pytest
+        run: |
+          pytest .

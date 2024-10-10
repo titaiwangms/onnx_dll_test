@@ -10,6 +10,19 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  # Even when given -y, apt will still sometimes hang at a prompt if a package
+  # has clarifications to ask; DEBIAN_FRONTEND=noninteractive prevents that,
+  # This will be defined for non-debian platforms below too, but there's no harm in that.
+  # (TravisCI quietly defined this on all their platforms, but we have to give it manually on GithubCI.)
+  DEBIAN_FRONTEND: 'noninteractive'
+  HDF5_USE_FILE_LOCKING: 'FALSE'
+  # Skip to the headless matplotlib renderer, which is less
+  # bug-prone in the constrained environment of CI
+  # Tip from a matplotlib dev: https://github.com/spinalcordtoolbox/spinalcordtoolbox/issues/3388#issuecomment-846091012
+  # Ref: https://matplotlib.org/stable/users/explain/backends.html
+  MPLBACKEND: 'Agg'
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 

@@ -54,9 +54,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       # Step 2: Install dependencies
-      - name: Install ONNX
+      - name: Install requirements.txt
         run: |
-          pip install onnx --upgrade
+          pip install -r requirements.txt
 
       # Step 3: List installed packages
       - name: List installed packages

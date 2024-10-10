@@ -67,3 +67,8 @@ jobs:
       - name: Import ONNX
         run: |
           python -c "from onnx.onnx_cpp2py_export import ONNX_ML"
+
+      # Step 5: Verify ONNX in python file
+      - name: Verify in python
+        run: |
+          python hello_onnx.py

@@ -66,4 +66,4 @@ jobs:
       # Step 4: Import ONNX
       - name: Import ONNX
         run: |
-          python -c "import onnx"
+          python -c "from onnx.onnx_cpp2py_export import ONNX_ML"
